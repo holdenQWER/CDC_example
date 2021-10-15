@@ -1,0 +1,18 @@
+module sync_cell #( parameter SYNC_DEPTH = 2)
+    (input wire clk,
+	  input wire rst_n,
+     input wire in,
+	  output wire out);
+
+   reg [SYNC_DEPTH-1:0] in_dly;
+
+   always @(posedge clk or negedge rst_n) begin
+      if(~rst_n)
+         in_dly <= {SYNC_DEPTH{1'b0}};
+      else
+         in_dly <= {in_dly[SYNC_DEPTH-2:0],in};
+   end
+
+   assign out = in_dly[SYNC_DEPTH-1];
+
+endmodule

@@ -1,0 +1,17 @@
+module rstn_sync #( parameter SYNC_DEPTH =2)
+   (input wire clk,
+    input wire rstn_in,
+    output wire rstn_out);
+
+   reg [SYNC_DEPTH-1:0] rstn_dly;
+
+   always @(posedge clk or negedge rstn_in) begin
+      if(~rstn_in)
+         rstn_dly <= {SYNC_DEPTH{1'b0}};
+      else
+         rstn_dly <= {rstn_dly[SYNC_DEPTH-2:0],1'b1};
+   end
+
+   assign rstn_out = rstn_dly[SYNC_DEPTH-1];
+
+endmodule
