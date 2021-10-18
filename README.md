@@ -1,6 +1,6 @@
 # CDC_example
 
-`make vcst` to run VC formal
+`make vcst` to run VC Spyglass CDC
 
 `make vcs` to run simulation
 
